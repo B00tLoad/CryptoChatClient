@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CyrpytedChatClient:jar">
+    <output-path>$USER_HOME$/Desktop/CyrpytedChatClient_jar</output-path>
+    <root id="archive" name="CyrpytedChatClient.jar">
+      <element id="module-output" name="CyrpytedChatClient" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/commons-text-1.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/commons-validator-1.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/commons-lang3-3.7.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
