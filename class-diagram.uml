@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>de.filipzocktan</OriginalElement>
+  <nodes>
+    <node x="933.5411904761904" y="369.0">de.filipzocktan.cryptochat.client.sockets.UserSocket</node>
+    <node x="1131.499523809524" y="753.0">de.filipzocktan.cryptochat.client.CryptoChatClient.UserService</node>
+    <node x="510.5411904761905" y="369.0">de.filipzocktan.cryptochat.client.sockets.StatusSocket</node>
+    <node x="790.0460952380952" y="554.0">de.filipzocktan.cryptochat.client.sockets.SocketCollection</node>
+    <node x="279.49999999999994" y="0.0">de.filipzocktan.cryptochat.client.util.TextArea</node>
+    <node x="598.1502619047619" y="730.5">de.filipzocktan.cryptochat.client.CryptoChatClient.StatusService</node>
+    <node x="21.5" y="753.0">de.filipzocktan.cryptochat.client.CryptoChatClient.KeyService</node>
+    <node x="728.5411904761904" y="380.5">de.filipzocktan.cryptochat.client.sockets.KeySocket</node>
+    <node x="282.99999999999994" y="123.0">de.filipzocktan.cryptochat.client.frames.ChatFrame</node>
+    <node x="162.5" y="641.5">de.filipzocktan.util.crypto.Crypto</node>
+    <node x="1151.5411904761904" y="358.0">de.filipzocktan.cryptochat.client.sockets.ChatSocket</node>
+    <node x="367.12452380952374" y="1153.0">de.filipzocktan.cryptochat.client.CryptoChatClient</node>
+    <node x="804.3328571428572" y="1409.0">de.filipzocktan.cryptochat.client.frames.ConnectFrame</node>
+    <node x="456.15026190476186" y="753.0">de.filipzocktan.cryptochat.client.CryptoChatClient.ChatService</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="de.filipzocktan.cryptochat.client.sockets.ChatSocket" target="de.filipzocktan.cryptochat.client.CryptoChatClient">
+      <point x="76.875" y="48.0" />
+      <point x="1330.9161904761904" y="534.0" />
+      <point x="1287.2034285714285" y="534.0" />
+      <point x="1287.2034285714285" y="1133.0" />
+      <point x="635.5769047619046" y="1133.0" />
+      <point x="130.95238095238096" y="-103.0" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.frames.ChatFrame" target="de.filipzocktan.cryptochat.client.frames.ConnectFrame">
+      <point x="92.80000000000007" y="92.5" />
+      <point x="491.8" y="328.0" />
+      <point x="1381.3299047619046" y="328.0" />
+      <point x="1381.3299047619046" y="1384.0" />
+      <point x="1001.5828571428572" y="1384.0" />
+      <point x="65.75" y="-81.5" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.CryptoChatClient" target="de.filipzocktan.cryptochat.client.CryptoChatClient.ChatService">
+      <point x="-26.190476190476147" y="-103.0" />
+      <point x="478.4340476190476" y="1133.0" />
+      <point x="476.3169285714286" y="1133.0" />
+      <point x="-40.33333333333326" y="25.5" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.frames.ChatFrame" target="de.filipzocktan.cryptochat.client.util.TextArea">
+      <point x="0.0" y="-92.5" />
+      <point x="0.0" y="36.5" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.sockets.SocketCollection" target="de.filipzocktan.cryptochat.client.sockets.UserSocket">
+      <point x="12.375" y="-224.5" />
+      <point x="950.9210952380952" y="534.0" />
+      <point x="966.5411904761904" y="534.0" />
+      <point x="-66.0" y="37.0" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.CryptoChatClient" target="de.filipzocktan.cryptochat.client.CryptoChatClient.UserService">
+      <point x="91.66666666666674" y="-103.0" />
+      <point x="596.2911904761904" y="1103.0" />
+      <point x="1151.6661904761906" y="1103.0" />
+      <point x="-40.33333333333326" y="25.5" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.CryptoChatClient" target="de.filipzocktan.cryptochat.client.CryptoChatClient.KeyService">
+      <point x="-104.76190476190482" y="-103.0" />
+      <point x="399.8626190476189" y="1113.0" />
+      <point x="41.66666666666674" y="1113.0" />
+      <point x="-40.33333333333326" y="25.5" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.sockets.SocketCollection" target="de.filipzocktan.cryptochat.client.sockets.ChatSocket">
+      <point x="86.625" y="-224.5" />
+      <point x="1025.1710952380952" y="514.0" />
+      <point x="1177.1661904761904" y="514.0" />
+      <point x="-76.875" y="48.0" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.CryptoChatClient" target="de.filipzocktan.cryptochat.client.CryptoChatClient.StatusService">
+      <point x="26.190476190476147" y="-103.0" />
+      <point x="530.8149999999998" y="1053.0" />
+      <point x="625.3169285714287" y="1053.0" />
+      <point x="-54.33333333333326" y="48.0" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.CryptoChatClient.KeyService" target="de.filipzocktan.cryptochat.client.CryptoChatClient">
+      <point x="40.33333333333326" y="25.5" />
+      <point x="122.33333333333326" y="1093.0" />
+      <point x="426.05309523809507" y="1093.0" />
+      <point x="-78.57142857142867" y="-103.0" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.sockets.SocketCollection" target="de.filipzocktan.cryptochat.client.sockets.KeySocket">
+      <point x="-37.125" y="-224.5" />
+      <point x="901.4210952380952" y="484.0" />
+      <point x="821.0411904761904" y="484.0" />
+      <point x="0.0" y="25.5" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.CryptoChatClient.StatusService" target="de.filipzocktan.cryptochat.client.CryptoChatClient">
+      <point x="54.33333333333326" y="48.0" />
+      <point x="733.9835952380952" y="1073.0" />
+      <point x="557.005476190476" y="1073.0" />
+      <point x="52.380952380952294" y="-103.0" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.CryptoChatClient" target="de.filipzocktan.cryptochat.client.sockets.SocketCollection">
+      <point x="65.4761904761906" y="-103.0" />
+      <point x="570.1007142857143" y="1083.0" />
+      <point x="864.2960952380952" y="1083.0" />
+      <point x="-74.25" y="224.5" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.CryptoChatClient" target="de.filipzocktan.cryptochat.client.frames.ChatFrame">
+      <point x="-39.28571428571445" y="-103.0" />
+      <point x="465.3388095238093" y="1063.0" />
+      <point x="398.99999999999994" y="1063.0" />
+      <point x="0.0" y="92.5" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.frames.ChatFrame" target="de.filipzocktan.cryptochat.client.CryptoChatClient">
+      <point x="-46.39999999999998" y="92.5" />
+      <point x="352.59999999999997" y="338.0" />
+      <point x="11.0" y="338.0" />
+      <point x="11.0" y="1123.0" />
+      <point x="386.76738095238085" y="1123.0" />
+      <point x="-117.85714285714289" y="-103.0" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.CryptoChatClient.UserService" target="de.filipzocktan.cryptochat.client.CryptoChatClient">
+      <point x="40.33333333333326" y="25.5" />
+      <point x="1232.3328571428572" y="1123.0" />
+      <point x="622.4816666666666" y="1123.0" />
+      <point x="117.85714285714289" y="-103.0" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.sockets.ChatSocket" target="de.filipzocktan.cryptochat.client.frames.ChatFrame">
+      <point x="0.0" y="-48.0" />
+      <point x="1254.0411904761904" y="338.0" />
+      <point x="445.3999999999999" y="338.0" />
+      <point x="46.39999999999998" y="92.5" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.CryptoChatClient.ChatService" target="de.filipzocktan.cryptochat.client.CryptoChatClient">
+      <point x="0.0" y="25.5" />
+      <point x="516.6502619047619" y="1023.0" />
+      <point x="491.52928571428566" y="1023.0" />
+      <point x="-13.095238095238074" y="-103.0" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.frames.ConnectFrame" target="de.filipzocktan.cryptochat.client.CryptoChatClient">
+      <point x="-65.75" y="-81.5" />
+      <point x="870.0828571428572" y="1384.0" />
+      <point x="504.62452380952374" y="1384.0" />
+      <point x="0.0" y="103.0" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.sockets.SocketCollection" target="de.filipzocktan.cryptochat.client.sockets.StatusSocket">
+      <point x="-136.125" y="-224.5" />
+      <point x="802.4210952380952" y="524.0" />
+      <point x="584.7911904761904" y="524.0" />
+      <point x="-24.75" y="37.0" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.sockets.StatusSocket" target="de.filipzocktan.cryptochat.client.CryptoChatClient">
+      <point x="-74.25" y="37.0" />
+      <point x="535.2911904761904" y="534.0" />
+      <point x="587.6502619047619" y="534.0" />
+      <point x="587.6502619047619" y="1043.0" />
+      <point x="517.7197619047618" y="1043.0" />
+      <point x="13.095238095238074" y="-103.0" />
+    </edge>
+    <edge source="de.filipzocktan.cryptochat.client.CryptoChatClient" target="de.filipzocktan.util.crypto.Crypto">
+      <point x="-65.4761904761906" y="-103.0" />
+      <point x="439.14833333333314" y="1083.0" />
+      <point x="219.0" y="1083.0" />
+      <point x="-56.5" y="137.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5" x="853.0" y="689.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
