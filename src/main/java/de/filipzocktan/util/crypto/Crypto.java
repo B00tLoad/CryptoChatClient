@@ -1,5 +1,7 @@
 package de.filipzocktan.util.crypto;
 
+import io.sentry.Sentry;
+
 import javax.crypto.Cipher;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
@@ -19,17 +21,10 @@ public class Crypto {
             keyPair_tmp = buildKeyPair();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+            Sentry.capture(e);
         }
         pubKey = keyPair_tmp.getPublic();
         privKey = keyPair_tmp.getPrivate();
-    }
-
-
-    public KeyPair buildKeyPair() throws NoSuchAlgorithmException {
-        final int keySize = 2048;
-        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-        keyPairGenerator.initialize(keySize);
-        return keyPairGenerator.genKeyPair();
     }
 
     public static String keyToString(PublicKey key) throws NoSuchAlgorithmException, InvalidKeySpecException {
@@ -38,18 +33,25 @@ public class Crypto {
         return new String(Base64.getEncoder().encode(spec.getEncoded()));
     }
 
+    public KeyPair buildKeyPair() throws NoSuchAlgorithmException {
+        final int keySize = 2048;
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+        keyPairGenerator.initialize(keySize);
+        return keyPairGenerator.genKeyPair();
+    }
+
     public PublicKey getPubKey() {
         return pubKey;
     }
 
-    public byte[] encrypt(String message) throws Exception{
+    public byte[] encrypt(String message) throws Exception {
         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.ENCRYPT_MODE, privKey);
 
         return cipher.doFinal(message.getBytes());
     }
 
-    public byte[] decrypt( byte [] encrypted) throws Exception {
+    public byte[] decrypt(byte[] encrypted) throws Exception {
         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.DECRYPT_MODE, serverKey);
 
@@ -64,8 +66,10 @@ public class Crypto {
         } catch (InvalidKeySpecException e) {
             pubKey1 = null;
             e.printStackTrace();
+            Sentry.capture(e);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+            Sentry.capture(e);
             pubKey1 = null;
         }
         this.serverKey = pubKey1;

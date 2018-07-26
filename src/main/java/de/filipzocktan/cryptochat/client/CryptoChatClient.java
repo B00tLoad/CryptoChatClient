@@ -3,12 +3,11 @@ package de.filipzocktan.cryptochat.client;
 import de.filipzocktan.cryptochat.client.frames.ChatFrame;
 import de.filipzocktan.cryptochat.client.sockets.SocketCollection;
 import de.filipzocktan.util.crypto.Crypto;
+import io.sentry.Sentry;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -22,6 +21,7 @@ public class CryptoChatClient {
     static boolean running = true;
 
     public static void main(String[] args) {
+        Sentry.init();
         crypto = new Crypto();
         chatFrame = new ChatFrame();
         chatFrame.main(null);
@@ -42,14 +42,15 @@ public class CryptoChatClient {
         } catch (IOException e) {
             connected = false;
             e.printStackTrace();
+            Sentry.capture(e);
         }
         if (!sockets.isSOpened()) {
             connected = false;
             return false;
         }
         sockets.getUserSocket().login(username, password);
-            sockets.getKeyOut().write(new String(new String(Base64.getEncoder().encode(crypto.getPubKey().getEncoded()))+"\n"));
-            sockets.getKeyOut().flush();
+        sockets.getKeyOut().write(new String(new String(Base64.getEncoder().encode(crypto.getPubKey().getEncoded())) + "\n"));
+        sockets.getKeyOut().flush();
         return true;
     }
 
@@ -61,7 +62,10 @@ public class CryptoChatClient {
                 try {
                     sockets.getChatSocket().readMessages();
                 } catch (IOException e) {
-                    if (running) e.printStackTrace();
+                    if (running) {
+                        e.printStackTrace();
+                        Sentry.capture(e);
+                    }
                 }
             }
             interrupt();
@@ -77,7 +81,10 @@ public class CryptoChatClient {
                     String input = sockets.getKeyIn().readLine();
                     crypto.setServerKey(Base64.getDecoder().decode(input));
                 } catch (IOException e) {
-                    if (running) e.printStackTrace();
+                    if (running) {
+                        e.printStackTrace();
+                        Sentry.capture(e);
+                    }
                 }
             }
             interrupt();
@@ -121,8 +128,11 @@ public class CryptoChatClient {
                     }
                 }
                 interrupt();
-            } catch (IOException ex) {
-                if (running) ex.printStackTrace();
+            } catch (IOException e) {
+                if (running) {
+                    e.printStackTrace();
+                    Sentry.capture(e);
+                }
             }
         }
     }
@@ -161,8 +171,11 @@ public class CryptoChatClient {
                     }
                 }
                 interrupt();
-            } catch (Exception ex) {
-                if (running) ex.printStackTrace();
+            } catch (Exception e) {
+                if (running) {
+                    e.printStackTrace();
+                    Sentry.capture(e);
+                }
             }
         }
     }

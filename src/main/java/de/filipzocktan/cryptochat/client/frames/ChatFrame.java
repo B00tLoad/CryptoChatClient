@@ -2,6 +2,7 @@ package de.filipzocktan.cryptochat.client.frames;
 
 import de.filipzocktan.cryptochat.client.CryptoChatClient;
 import de.filipzocktan.cryptochat.client.util.TextArea;
+import io.sentry.Sentry;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,19 +20,19 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.awt.*;
 import java.util.Stack;
 
-import javafx.stage.WindowEvent;
+import de.filipzocktan.cryptochat.client.util.TextArea;
 
 public class ChatFrame extends Application {
 
+    public static TextArea chat;
     Stack<String> lastMsgs = new Stack<>();
     Stack<String> messagesBefore = new Stack<>();
     Stack<String> messagesAfter = new Stack<>();
-    public static TextArea chat;
-
 
     public static void main(String[] args) {
         launch(args);
@@ -109,6 +110,7 @@ public class ChatFrame extends Application {
                         CryptoChatClient.sockets.getChatSocket().sendMessage(msgField.getText());
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Sentry.capture(e);
                     }
                     CryptoChatClient.sockets.getChatOut().flush();
                     lastMsgs.push(msgField.getText());
@@ -129,7 +131,7 @@ public class ChatFrame extends Application {
         mitemConnect.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                new ConnectFrame("127.0.0.1","8610","Alix");
+                new ConnectFrame("127.0.0.1", "8610", "Alix");
             }
         });
         menuChat.getItems().addAll(mitemConnect);
@@ -150,7 +152,7 @@ public class ChatFrame extends Application {
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                if(CryptoChatClient.connected){
+                if (CryptoChatClient.connected) {
                     System.out.println("Disconnect");
                     CryptoChatClient.sockets.getStatusSocket().sendDisconnect();
                 }

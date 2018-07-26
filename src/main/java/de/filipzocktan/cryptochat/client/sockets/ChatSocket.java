@@ -2,6 +2,7 @@ package de.filipzocktan.cryptochat.client.sockets;
 
 import de.filipzocktan.cryptochat.client.CryptoChatClient;
 import de.filipzocktan.cryptochat.client.frames.ChatFrame;
+import io.sentry.Sentry;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -23,6 +24,7 @@ public class ChatSocket extends Socket {
             msg = new String(CryptoChatClient.crypto.decrypt(Base64.getDecoder().decode(input)));
         } catch (Exception e) {
             e.printStackTrace();
+            Sentry.capture(e);
         }
         if (msg == "") return;
         if (msg == null) return;
@@ -35,8 +37,9 @@ public class ChatSocket extends Socket {
             encryptedMessage = CryptoChatClient.crypto.encrypt(message);
         } catch (Exception e) {
             e.printStackTrace();
+            Sentry.capture(e);
         }
-            CryptoChatClient.sockets.getChatOut().write(new String(Base64.getEncoder().encode(encryptedMessage)) + "\n");
-            CryptoChatClient.sockets.getChatOut().flush();
+        CryptoChatClient.sockets.getChatOut().write(new String(Base64.getEncoder().encode(encryptedMessage)) + "\n");
+        CryptoChatClient.sockets.getChatOut().flush();
     }
 }

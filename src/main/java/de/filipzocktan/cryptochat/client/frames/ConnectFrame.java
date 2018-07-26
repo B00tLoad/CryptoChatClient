@@ -27,14 +27,14 @@ public class ConnectFrame {
     private String port;
     private String uname;
 
-    public ConnectFrame(){
-        this("","8610","");
+    public ConnectFrame() {
+        this("", "8610", "");
     }
 
-    public ConnectFrame(String host, String port, String uname){
-        this.host=host;
+    public ConnectFrame(String host, String port, String uname) {
+        this.host = host;
         this.port = port;
-        this.uname=uname;
+        this.uname = uname;
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
         start(stage);
@@ -47,13 +47,13 @@ public class ConnectFrame {
         primaryStage.setTitle("Connect | CryptoChat");
         primaryStage.setResizable(false);
 
-       //GridPane-Layout
+        //GridPane-Layout
         GridPane grid = new GridPane();
 //        grid.setGridLinesVisible(true);
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(25,25,25,25));
+        grid.setPadding(new Insets(25, 25, 25, 25));
 
         ColumnConstraints col1 = new ColumnConstraints();
         col1.setPercentWidth(25);
@@ -63,7 +63,7 @@ public class ConnectFrame {
         col3.setPercentWidth(25);
         ColumnConstraints col4 = new ColumnConstraints();
         col3.setPercentWidth(25);
-        grid.getColumnConstraints().addAll(col1,col2,col3,col4);
+        grid.getColumnConstraints().addAll(col1, col2, col3, col4);
 
         //Scene
         Scene scene = new Scene(grid);
@@ -79,7 +79,7 @@ public class ConnectFrame {
         hosttf.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         hosttf.setMinSize(Double.MIN_VALUE, Double.MIN_VALUE);
         hosttf.setText(host);
-        grid.add(hosttf, 0,0, 3, 1);
+        grid.add(hosttf, 0, 0, 3, 1);
 
 
         TextField porttf = new TextField(port);
@@ -90,7 +90,7 @@ public class ConnectFrame {
         porttf.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         porttf.setMinSize(Double.MIN_VALUE, Double.MIN_VALUE);
         porttf.setText(port);
-        grid.add(porttf, 3,0, 1,1);
+        grid.add(porttf, 3, 0, 1, 1);
 
 
         TextField unametf = new TextField(uname);
@@ -101,7 +101,7 @@ public class ConnectFrame {
         unametf.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         unametf.setMinSize(Double.MIN_VALUE, Double.MIN_VALUE);
         unametf.setText(uname);
-        grid.add(unametf, 0,1, 2, 1);
+        grid.add(unametf, 0, 1, 2, 1);
 
         PasswordField passwordtf = new PasswordField();
         passwordtf.setPromptText("Password");
@@ -110,11 +110,11 @@ public class ConnectFrame {
         passwordtf.setTooltip(passworttooltip);
         passwordtf.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         passwordtf.setMinSize(Double.MIN_VALUE, Double.MIN_VALUE);
-        grid.add(passwordtf, 2,1,2,1);
+        grid.add(passwordtf, 2, 1, 2, 1);
 
         Label infoLbl = new Label();
         infoLbl.getStyleClass().add("errorlabel");
-        grid.add(infoLbl,0,2,2,1);
+        grid.add(infoLbl, 0, 2, 2, 1);
 
         Button connectButton = new Button("Connect");
         connectButton.setDefaultButton(true);
@@ -131,17 +131,17 @@ public class ConnectFrame {
                 InetAddressValidator ipValidator = new InetAddressValidator();
 
                 String host_tmp = hosttf.getText();
-                if(urlValidator.isValid("http://"+host_tmp)){}
-                else if(!ipValidator.isValidInet4Address(host_tmp)){
-                    exe=false;
+                if (urlValidator.isValid("http://" + host_tmp)) {
+                } else if (!ipValidator.isValidInet4Address(host_tmp)) {
+                    exe = false;
                     infoLbl.setText(infoLbl.getText() + "Host/IP-Address is not valid.\n");
                 }
 
 
                 //check Username and stop login if invalid
                 String uname_tmp = unametf.getText();
-                if(!org.apache.commons.lang3.StringUtils.isAlphanumeric(uname_tmp)){
-                    exe=false;
+                if (!org.apache.commons.lang3.StringUtils.isAlphanumeric(uname_tmp)) {
+                    exe = false;
                     infoLbl.setText(infoLbl.getText() + "Username is not valid.\n");
                 }
 
@@ -149,18 +149,19 @@ public class ConnectFrame {
                 try {
                     port_tmp = Integer.parseInt(porttf.getText());
                 } catch (NumberFormatException e) {
-                    exe=false;
+                    exe = false;
                     infoLbl.setText(infoLbl.getText() + "Port is not valid.\n");
                 }
-                if(exe){
-                    CryptoChatClient.login(host_tmp,port_tmp,uname_tmp,pw_tmp);
+                if (exe) {
+                    CryptoChatClient.login(host_tmp, port_tmp, uname_tmp, pw_tmp);
                     CryptoChatClient.startServices();
                     primaryStage.close();
-            }}
+                }
+            }
         });
         connectButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         connectButton.setMinSize(Double.MIN_VALUE, Double.MIN_VALUE);
-        grid.add(connectButton,3,2,1,1);
+        grid.add(connectButton, 3, 2, 1, 1);
 
         Button cancelButton = new Button("Cancel");
         cancelButton.setCancelButton(true);
@@ -172,12 +173,12 @@ public class ConnectFrame {
                 primaryStage.close();
             }
         });
-        grid.add(cancelButton,2,2,1,1);
+        grid.add(cancelButton, 2, 2, 1, 1);
 
         //NOTE: Last commands
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        int loc_x = (screen.width-(int)scene.getWidth())/2;
-        int loc_y = (screen.height-(int)scene.getHeight())/2;
+        int loc_x = (screen.width - (int) scene.getWidth()) / 2;
+        int loc_y = (screen.height - (int) scene.getHeight()) / 2;
         primaryStage.setX(loc_x);
         primaryStage.setY(loc_y);
         primaryStage.show();
