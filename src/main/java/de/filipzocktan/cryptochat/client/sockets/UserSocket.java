@@ -7,7 +7,7 @@ import java.net.Socket;
 
 public class UserSocket extends Socket {
 
-    public UserSocket(String host, int port) throws IOException {
+    UserSocket(String host, int port) throws IOException {
         super(host, port);
     }
 

@@ -9,15 +9,16 @@ import java.net.Socket;
 import java.util.Base64;
 
 public class ChatSocket extends Socket {
-    public ChatSocket(String host, int port) throws IOException {
+    ChatSocket(String host, int port) throws IOException {
         super(host, port);
     }
 
     public void readMessages() throws IOException {
         String input = CryptoChatClient.sockets.getChatIn().readLine();
         if (input == null) return;
-        if (input == "") return;
-        while (CryptoChatClient.crypto.hasServerKey() == false) {
+        if ("".equals(input)) return;
+        while (true) {
+            if (CryptoChatClient.crypto.hasServerKey()) break;
         }
         String msg = "";
         try {
@@ -26,8 +27,7 @@ public class ChatSocket extends Socket {
             e.printStackTrace();
             Sentry.capture(e);
         }
-        if (msg == "") return;
-        if (msg == null) return;
+        if ("".equals(msg)) return;
         ChatFrame.chat.appendLine(msg);
     }
 

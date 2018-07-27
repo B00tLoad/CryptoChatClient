@@ -4,8 +4,6 @@ import de.filipzocktan.cryptochat.client.CryptoChatClient;
 import de.filipzocktan.cryptochat.client.util.TextArea;
 import io.sentry.Sentry;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -15,24 +13,21 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.awt.*;
 import java.util.Stack;
 
-import de.filipzocktan.cryptochat.client.util.TextArea;
 
 public class ChatFrame extends Application {
 
     public static TextArea chat;
-    Stack<String> lastMsgs = new Stack<>();
-    Stack<String> messagesBefore = new Stack<>();
-    Stack<String> messagesAfter = new Stack<>();
+    private final Stack<String> lastMsgs = new Stack<>();
+    private Stack<String> messagesBefore = new Stack<>();
+    private Stack<String> messagesAfter = new Stack<>();
 
     public static void main(String[] args) {
         launch(args);
@@ -76,49 +71,44 @@ public class ChatFrame extends Application {
 
         TextField msgField = new TextField();
         msgField.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        msgField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
+        msgField.setOnKeyPressed(event -> {
 
 
-                switch (event.getCode()) {
-                    case UP:
-                        if (!messagesBefore.empty()) {
-                            messagesAfter.push(msgField.getText());
-                            String msg = messagesBefore.pop();
-                            msgField.setText(msg);
-                        }
-                        break;
-                    case DOWN:
-                        if (!messagesAfter.empty()) {
-                            messagesBefore.push(msgField.getText());
-                            msgField.setText(messagesAfter.pop());
-                        }
-                        break;
-                }
+            switch (event.getCode()) {
+                case UP:
+                    if (!messagesBefore.empty()) {
+                        messagesAfter.push(msgField.getText());
+                        String msg = messagesBefore.pop();
+                        msgField.setText(msg);
+                    }
+                    break;
+                case DOWN:
+                    if (!messagesAfter.empty()) {
+                        messagesBefore.push(msgField.getText());
+                        msgField.setText(messagesAfter.pop());
+                    }
+                    break;
             }
         });
         grid.add(msgField, 0, 2, 1, 1);
 
         Button sendButton = new Button("Send");
         sendButton.setDefaultButton(true);
-        sendButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (!msgField.getText().equals("")) {
-                    try {
-                        CryptoChatClient.sockets.getChatSocket().sendMessage(msgField.getText());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Sentry.capture(e);
-                    }
-                    CryptoChatClient.sockets.getChatOut().flush();
-                    lastMsgs.push(msgField.getText());
-                    messagesBefore = lastMsgs;
-                    Stack<String> messagesAfter = new Stack<>();
-                    msgField.clear();
+        sendButton.setOnAction(event -> {
+            if (!msgField.getText().equals("")) {
+                try {
+                    CryptoChatClient.sockets.getChatSocket().sendMessage(msgField.getText());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Sentry.capture(e);
                 }
+                CryptoChatClient.sockets.getChatOut().flush();
+                lastMsgs.push(msgField.getText());
+                messagesBefore = lastMsgs;
+                messagesAfter = new Stack<>();
+                msgField.clear();
             }
+
         });
         sendButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         grid.add(sendButton, 1, 2, 1, 1);
@@ -128,12 +118,8 @@ public class ChatFrame extends Application {
 
         Menu menuChat = new Menu("Chat");
         MenuItem mitemConnect = new MenuItem("Connect");
-        mitemConnect.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                new ConnectFrame("127.0.0.1", "8610", "Alix");
-            }
-        });
+        mitemConnect.setOnAction(event -> new ConnectFrame());
+
         menuChat.getItems().addAll(mitemConnect);
         menu.getMenus().addAll(menuChat);
         grid.add(menu, 0, 0, 2, 1);
@@ -149,15 +135,13 @@ public class ChatFrame extends Application {
         int loc_y = (screen.height - (int) scene.getHeight()) / 2;
         primaryStage.setX(loc_x);
         primaryStage.setY(loc_y);
-        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
+        primaryStage.setOnCloseRequest(event -> {
                 if (CryptoChatClient.connected) {
                     System.out.println("Disconnect");
                     CryptoChatClient.sockets.getStatusSocket().sendDisconnect();
                 }
-                System.exit(0);
-            }
+                Runtime.getRuntime().exit(0);
+
         });
         primaryStage.show();
 

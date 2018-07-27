@@ -2,8 +2,6 @@ package de.filipzocktan.cryptochat.client.frames;
 
 
 import de.filipzocktan.cryptochat.client.CryptoChatClient;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -21,17 +19,17 @@ import org.apache.commons.validator.routines.UrlValidator;
 import java.awt.*;
 import java.util.Base64;
 
-public class ConnectFrame {
+class ConnectFrame {
 
-    private String host;
-    private String port;
-    private String uname;
+    private final String host;
+    private final String port;
+    private final String uname;
 
-    public ConnectFrame() {
+    ConnectFrame() {
         this("", "8610", "");
     }
 
-    public ConnectFrame(String host, String port, String uname) {
+    private ConnectFrame(String host, String port, String uname) {
         this.host = host;
         this.port = port;
         this.uname = uname;
@@ -41,7 +39,7 @@ public class ConnectFrame {
     }
 
 
-    public void start(Stage primaryStage) {
+    private void start(Stage primaryStage) {
 
         //edit Stage
         primaryStage.setTitle("Connect | CryptoChat");
@@ -118,9 +116,7 @@ public class ConnectFrame {
 
         Button connectButton = new Button("Connect");
         connectButton.setDefaultButton(true);
-        connectButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
+        connectButton.setOnAction( event -> {
                 infoLbl.setText("");
                 boolean exe = true;
                 int port_tmp = 0;
@@ -131,8 +127,7 @@ public class ConnectFrame {
                 InetAddressValidator ipValidator = new InetAddressValidator();
 
                 String host_tmp = hosttf.getText();
-                if (urlValidator.isValid("http://" + host_tmp)) {
-                } else if (!ipValidator.isValidInet4Address(host_tmp)) {
+                if ((!urlValidator.isValid("http://" + host_tmp)) && (!ipValidator.isValidInet4Address(host_tmp))) {
                     exe = false;
                     infoLbl.setText(infoLbl.getText() + "Host/IP-Address is not valid.\n");
                 }
@@ -157,7 +152,7 @@ public class ConnectFrame {
                     CryptoChatClient.startServices();
                     primaryStage.close();
                 }
-            }
+
         });
         connectButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         connectButton.setMinSize(Double.MIN_VALUE, Double.MIN_VALUE);
@@ -167,12 +162,8 @@ public class ConnectFrame {
         cancelButton.setCancelButton(true);
         cancelButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         cancelButton.setMinSize(Double.MIN_VALUE, Double.MIN_VALUE);
-        cancelButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                primaryStage.close();
-            }
-        });
+        cancelButton.setOnAction(event -> primaryStage.close());
+
         grid.add(cancelButton, 2, 2, 1, 1);
 
         //NOTE: Last commands

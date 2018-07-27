@@ -85,6 +85,15 @@ public class SocketCollection {
             Sentry.capture(ex);
         }
 
+
+        if (keySocket.isConnected()) {
+            socketsOpened = false;
+        } else if (chatSocket.isConnected()) {
+            socketsOpened = false;
+        } else if (userSocket.isConnected()) {
+            socketsOpened = false;
+
+        } else socketsOpened = !statusSocket.isConnected();
         userIn = userIn1;
         userOut = userOut1;
         chatOut = chatOut1;
@@ -93,19 +102,6 @@ public class SocketCollection {
         keyOut = keyOut1;
         statusIn = statusIn1;
         statusOut = statusOut1;
-
-        if (keySocket == null) {
-            socketsOpened = false;
-        } else if (chatSocket == null) {
-            socketsOpened = false;
-        } else if (userSocket == null) {
-            socketsOpened = false;
-
-        } else if (statusSocket == null) {
-            socketsOpened = false;
-        } else {
-            socketsOpened = true;
-        }
 
     }
 
@@ -117,7 +113,7 @@ public class SocketCollection {
         return userSocket;
     }
 
-    public KeySocket getKeySocket() {
+    private KeySocket getKeySocket() {
         return keySocket;
     }
 
@@ -149,11 +145,11 @@ public class SocketCollection {
         return chatOut;
     }
 
-    public BufferedReader getChatIn() {
+    BufferedReader getChatIn() {
         return chatIn;
     }
 
-    public PrintWriter getUserOut() {
+    private PrintWriter getUserOut() {
         return userOut;
     }
 

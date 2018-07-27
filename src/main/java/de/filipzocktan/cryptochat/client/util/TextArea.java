@@ -6,8 +6,4 @@ public class TextArea extends javafx.scene.control.TextArea {
         appendText(text + "\n");
     }
 
-    public void newMessage(String Username, String text) {
-        appendLine("<" + Username + "> " + text);
-    }
-
 }

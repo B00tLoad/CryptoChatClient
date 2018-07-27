@@ -8,7 +8,7 @@ import java.net.Socket;
 
 public class StatusSocket extends Socket {
 
-    public StatusSocket(String host, int port) throws IOException {
+    StatusSocket(String host, int port) throws IOException {
         super(host, port);
     }
 

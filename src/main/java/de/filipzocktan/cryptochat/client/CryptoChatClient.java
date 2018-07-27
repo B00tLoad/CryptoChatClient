@@ -16,15 +16,15 @@ public class CryptoChatClient {
 
     public static Crypto crypto;
     public static SocketCollection sockets;
-    public static ChatFrame chatFrame;
+    private static ChatFrame chatFrame;
     public static boolean connected = false;
-    static boolean running = true;
+    private static boolean running = true;
 
     public static void main(String[] args) {
         Sentry.init();
         crypto = new Crypto();
         chatFrame = new ChatFrame();
-        chatFrame.main(null);
+        ChatFrame.main(null);
     }
 
     public static void startServices() {
@@ -34,7 +34,7 @@ public class CryptoChatClient {
         new KeyService().start();
     }
 
-    public static boolean login(String host, int port, String username, String password) {
+    public static void login(String host, int port, String username, String password) {
         System.out.println("Logging in as " + username + ":" + password + "@" + host + ":" + port);
         connected = true;
         try {
@@ -46,12 +46,11 @@ public class CryptoChatClient {
         }
         if (!sockets.isSOpened()) {
             connected = false;
-            return false;
+            return;
         }
         sockets.getUserSocket().login(username, password);
-        sockets.getKeyOut().write(new String(new String(Base64.getEncoder().encode(crypto.getPubKey().getEncoded())) + "\n"));
+        sockets.getKeyOut().write(new String(Base64.getEncoder().encode(crypto.getPubKey().getEncoded())) + "\n");
         sockets.getKeyOut().flush();
-        return true;
     }
 
     private static class ChatService extends Thread {
@@ -137,7 +136,7 @@ public class CryptoChatClient {
         }
     }
 
-    public static class StatusService extends Thread {
+    static class StatusService extends Thread {
 
         BufferedReader in;
         PrintWriter out;

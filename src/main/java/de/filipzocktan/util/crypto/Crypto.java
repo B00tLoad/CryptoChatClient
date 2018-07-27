@@ -6,7 +6,6 @@ import javax.crypto.Cipher;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.Base64;
 
 public class Crypto {
 
@@ -23,17 +22,12 @@ public class Crypto {
             e.printStackTrace();
             Sentry.capture(e);
         }
+        assert keyPair_tmp != null;
         pubKey = keyPair_tmp.getPublic();
         privKey = keyPair_tmp.getPrivate();
     }
 
-    public static String keyToString(PublicKey key) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        KeyFactory factory = KeyFactory.getInstance("RSA");
-        X509EncodedKeySpec spec = factory.getKeySpec(key, X509EncodedKeySpec.class);
-        return new String(Base64.getEncoder().encode(spec.getEncoded()));
-    }
-
-    public KeyPair buildKeyPair() throws NoSuchAlgorithmException {
+    private KeyPair buildKeyPair() throws NoSuchAlgorithmException {
         final int keySize = 2048;
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
         keyPairGenerator.initialize(keySize);
