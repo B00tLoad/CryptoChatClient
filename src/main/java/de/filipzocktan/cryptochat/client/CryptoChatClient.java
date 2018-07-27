@@ -120,8 +120,12 @@ public class CryptoChatClient {
                                             sockets.close();
                                             running = false;
                                             break;
+                                            default:
+                                                break;
                                     }
                                     break;
+                                    default:
+                                        break;
                             }
                             break;
                     }
@@ -167,6 +171,8 @@ public class CryptoChatClient {
                             sockets.close();
                             running = false;
                             break;
+                            default:
+                                break;
                     }
                 }
                 interrupt();

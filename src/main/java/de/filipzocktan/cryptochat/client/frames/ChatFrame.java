@@ -88,6 +88,8 @@ public class ChatFrame extends Application {
                         msgField.setText(messagesAfter.pop());
                     }
                     break;
+                    default:
+                        break;
             }
         });
         grid.add(msgField, 0, 2, 1, 1);
